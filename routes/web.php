@@ -19,3 +19,23 @@ Route::post('/display-discount', function (Illuminate\Http\Request $request) {
     return view('display-discount', compact(['discountPrice', 'discountAmount',
         'productDescription', 'price', 'discountPercent']));
 });
+
+Route::get('/dictionary', function () {
+   return view('dictionary');
+});
+
+Route::post('/display-dictionary', function (Illuminate\Http\Request $request) {
+    $wordArray = array(
+        "hello"=>"xin chào",
+        "goodbye"=>"tạm biệt",
+        "football"=>"bóng đá"
+    );
+
+    $word = $request->word;
+    if (array_key_exists($word, $wordArray)) {
+        $wordVN = $wordArray[$word];
+    } else {
+        $wordVN = "không tìm thấy!";
+    }
+    return view('display-dictionary', compact('wordVN'));
+});
